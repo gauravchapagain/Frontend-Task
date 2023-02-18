@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="counter.css">
+    <title>Simple Counter App</title>
+  </head>
+  <body>
+    <center><h2 style="color: white; background-color: seagreen;">SIMPLE COUNTER APP</h2></center>
+    <h1><center>
+      Counter: <span id="counter">0</span></h1>
+    </center>
+      <center>
+    <button onclick="increment()">Increment</button>
+    <button onclick="decrement()">Decrement</button>
+    <button onclick="reset()">Reset</button>
+  </center>
+
+    <script> 
+      let count = 0;
+      const counter = document.getElementById("counter");
+
+      function increment() {
+        count++;
+        counter.innerHTML = count;
+      }
+
+      function decrement() {
+        count--;
+        counter.innerHTML = count;
+      }
+
+      function reset() {
+        count = 0;
+        counter.innerHTML = count;
+      }
+
+    </script>
+    <br>
+    <footer>
+     <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Designed by Gaurav Chapagain</p>
+     
+    </footer>
+    
+  </body>
+</html> 
+
+
+
+
+
+
+
+
+

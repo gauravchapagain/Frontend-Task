@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRUD App</title>
+    <style>
+      .container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 32px;
+  text-align: center;
+  margin: 40px 0;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+form input {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+form button {
+  margin: 10px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background-color: #3e8e41;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 40px 0;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+.btn-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>CRUD App</h1>
+    <form id="form">
+      <label for="name">Name</label>
+      <input type="text" id="name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+      <button type="submit" id="submit">Add</button>
+    </form>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+      </tbody>
+    </table>
+    <script>
+      const form = document.querySelector('#form');
+      const nameInput = document.querySelector('#name');
+      const emailInput = document.querySelector('#email');
+      const tbody = document.querySelector('#tbody');
+
+      let contacts = [];
+
+      function render() {
+        tbody.innerHTML = '';
+        for (let i = 0; i < contacts.length; i++) {
+          const contact = contacts[i];
+          const tr = document.createElement('tr');
+          const nameTd = document.createElement('td');
+          nameTd.innerText = contact.name;
+          const emailTd = document.createElement('td');
+          emailTd.innerText = contact.email;
+          const actionsTd = document.createElement('td');
+          const editBtn = document.createElement('button');
+          editBtn.innerText = 'Edit';
+          editBtn.addEventListener('click', () => edit(i));
+          actionsTd.appendChild(editBtn);
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerText = 'Delete';
+          deleteBtn.addEventListener('click', () => del(i));
+          actionsTd.appendChild(deleteBtn);
+          tr.appendChild(nameTd);
+          tr.appendChild(emailTd);
+          tr.appendChild(actionsTd);
+          tbody.appendChild(tr);
+        }
+      }
+
+      function add(e) {
+        e.preventDefault();
+        const name = nameInput.value;
+        const email = emailInput.value;
+        const contact = { name, email };
+        contacts.push(contact);
+        render();
+        nameInput.value = '';
+        emailInput.value = '';
+      }
+
+      function edit(i) {
+        const contact = contacts[i];
+        nameInput.value = contact.name;
+        emailInput.value = contact.email;
+        contacts.splice(i, 1);
+        render();
+      }
+
+      function del(i) {
+        contacts.splice(i, 1);
+        render();
+      }
+
+      form.addEventListener('submit', add);
+    </script>
+  </body>
+</html>
